@@ -23,7 +23,7 @@ public class StudentManagementStudentController {
 	@Autowired
 	private StudentManagementStudentService managementStudentService;
 
-	@RequestMapping(value = { "/", "/students" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/", "/students" }, method = {RequestMethod.GET, RequestMethod.POST})
 	public String showStudentsList(Model model) {
 		List<Student> students = managementStudentService.getAllStudents();
 		model.addAttribute("students", students);

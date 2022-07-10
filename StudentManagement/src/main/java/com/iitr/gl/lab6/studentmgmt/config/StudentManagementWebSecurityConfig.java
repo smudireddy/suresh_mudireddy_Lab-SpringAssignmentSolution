@@ -26,21 +26,28 @@ public class StudentManagementWebSecurityConfig extends WebSecurityConfigurerAda
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-
-		http.csrf().disable().cors().disable().headers().frameOptions().disable();
 		
 		http.anonymous()
 			.and()
 			.authorizeRequests()
-			.antMatchers("/login**", "/logout**", "/contact-us**", "/login/**").permitAll()
-			.antMatchers(HttpMethod.GET, "/students**").hasAnyRole("USER", "ADMIN")
-			.antMatchers(HttpMethod.POST, "/students**").hasRole("ADMIN")
-			.antMatchers(HttpMethod.DELETE, "/students/**").hasRole("ADMIN")
-			.anyRequest().authenticated()
+			.antMatchers("/", "/students/").hasAnyRole("USER", "ADMIN")
+			.antMatchers("/students/register", 
+					"/students/update", 
+					"/students/deregister")
+			.hasRole("ADMIN")
+			.anyRequest()
+			.authenticated()
 			.and()
 				.formLogin()
-				.and().
-				httpBasic();
+					.loginProcessingUrl("/login")
+					.successForwardUrl("/")
+					.permitAll()
+			.and().logout().logoutSuccessUrl("/login").permitAll()
+			.and()
+			.exceptionHandling().accessDeniedPage("/students/403")
+			.and()
+			.exceptionHandling().accessDeniedPage("/users/403")
+			.and().cors().and().csrf().disable();
 	}
 	
 	@Override

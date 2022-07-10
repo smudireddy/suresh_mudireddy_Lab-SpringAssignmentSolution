@@ -14,38 +14,18 @@ import com.iitr.gl.lab6.studentmgmt.repository.StudentMgmtUserRepository;
 @Configuration
 public class BootstrapAppConfig implements ApplicationListener<ApplicationReadyEvent> {
 
-	private StudentMgmtUserRepository userRepository;
-	private PasswordEncoder passwordEncoder;
-	
-	BootstrapAppConfig(StudentMgmtUserRepository userRepository) {
-		this.userRepository = userRepository;
-		this.passwordEncoder = new BCryptPasswordEncoder();
-	}
+	/*
+	 * private StudentMgmtUserRepository userRepository; private PasswordEncoder
+	 * passwordEncoder;
+	 * 
+	 * BootstrapAppConfig(StudentMgmtUserRepository userRepository) {
+	 * this.userRepository = userRepository; this.passwordEncoder = new
+	 * BCryptPasswordEncoder(); }
+	 */
 	
 	@Override
 	public void onApplicationEvent(ApplicationReadyEvent event) {
 		
-		/*
-		Role user = new Role();
-		user.setRoleName("USER");
 		
-		Role admin = new Role();
-		admin.setRoleName("ADMIN");
-		
-		User suresh = new User();
-		suresh.setName("suresh");
-		suresh.setPassword(passwordEncoder.encode("welcome"));
-		suresh.addRole(user);
-		suresh.addRole(admin);
-		
-		
-		User ramesh = new User();
-		ramesh.setName("ramesh");
-		ramesh.setPassword(passwordEncoder.encode("welcome"));
-		ramesh.addRole(user);
-		
-		userRepository.save(suresh);
-		userRepository.save(ramesh);
-	  */	
 	}
 }
