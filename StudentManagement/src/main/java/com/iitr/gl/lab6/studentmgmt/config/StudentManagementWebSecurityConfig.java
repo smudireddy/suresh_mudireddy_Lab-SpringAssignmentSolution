@@ -29,14 +29,18 @@ public class StudentManagementWebSecurityConfig extends WebSecurityConfigurerAda
 
 		http.csrf().disable().cors().disable().headers().frameOptions().disable();
 		
-		http.anonymous().and().authorizeRequests().anyRequest().permitAll();
-		/*
-		http.anonymous().and().authorizeRequests().antMatchers("/login**", "/logout**", "/contact-us**", "/login/**").permitAll()
-				.antMatchers(HttpMethod.GET, "/students**").hasAnyRole("USER", "ADMIN")
-				.antMatchers(HttpMethod.POST, "/students**").hasRole("ADMIN")
-				.antMatchers(HttpMethod.DELETE, "/students/**").hasRole("ADMIN").anyRequest().authenticated().and()
-				.formLogin().and().httpBasic();
-			*/	
+		http.anonymous()
+			.and()
+			.authorizeRequests()
+			.antMatchers("/login**", "/logout**", "/contact-us**", "/login/**").permitAll()
+			.antMatchers(HttpMethod.GET, "/students**").hasAnyRole("USER", "ADMIN")
+			.antMatchers(HttpMethod.POST, "/students**").hasRole("ADMIN")
+			.antMatchers(HttpMethod.DELETE, "/students/**").hasRole("ADMIN")
+			.anyRequest().authenticated()
+			.and()
+				.formLogin()
+				.and().
+				httpBasic();
 	}
 	
 	@Override

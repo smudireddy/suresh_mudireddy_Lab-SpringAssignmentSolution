@@ -8,5 +8,5 @@ import com.iitr.gl.lab6.studentmgmt.entity.User;
 
 public interface StudentMgmtUserRepository  extends JpaRepository<User, Long>{
   
-	Optional<User> findUserByName(String userName); 
+	Optional<User> findByName(String userName); 
 }
