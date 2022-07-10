@@ -30,6 +30,12 @@ public class StudentManagementStudentController {
 		return "studentlist";
 	}
 	
+	@RequestMapping("/students/accessdenied")
+	public String  showAccessdeniedMessage() {
+		return "accessdenied";
+	}
+
+	
 	@GetMapping("/students/register")
 	public String showStudentRegisterationForm(Model model) {
 		model.addAttribute("student",new Student());

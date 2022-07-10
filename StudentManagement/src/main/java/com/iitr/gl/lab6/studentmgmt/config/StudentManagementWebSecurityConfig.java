@@ -30,7 +30,7 @@ public class StudentManagementWebSecurityConfig extends WebSecurityConfigurerAda
 		http.anonymous()
 			.and()
 			.authorizeRequests()
-			.antMatchers("/", "/students/").hasAnyRole("USER", "ADMIN")
+			.antMatchers("/", "/students","/students/accessdenied").hasAnyRole("USER", "ADMIN")
 			.antMatchers("/students/register", 
 					"/students/update", 
 					"/students/deregister")
@@ -44,9 +44,9 @@ public class StudentManagementWebSecurityConfig extends WebSecurityConfigurerAda
 					.permitAll()
 			.and().logout().logoutSuccessUrl("/login").permitAll()
 			.and()
-			.exceptionHandling().accessDeniedPage("/students/403")
+			.exceptionHandling().accessDeniedPage("/accessdenied.jsp")
 			.and()
-			.exceptionHandling().accessDeniedPage("/users/403")
+			.exceptionHandling().accessDeniedPage("/accessdenied.jsp")
 			.and().cors().and().csrf().disable();
 	}
 	
