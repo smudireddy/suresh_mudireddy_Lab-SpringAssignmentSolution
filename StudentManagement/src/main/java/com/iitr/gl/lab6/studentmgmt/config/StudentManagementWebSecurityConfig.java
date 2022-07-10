@@ -5,15 +5,25 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.iitr.gl.lab6.studentmgmt.servicesimpl.StudentMgmtUserDetailsService;
+
 @Configuration
-
+@EnableWebSecurity
 public class StudentManagementWebSecurityConfig extends WebSecurityConfigurerAdapter {
-
+	
+	private UserDetailsService studentMgmtUserDetailsService;
+	
+	public StudentManagementWebSecurityConfig(StudentMgmtUserDetailsService studentMgmtUserDetailsService) {
+        this.studentMgmtUserDetailsService = studentMgmtUserDetailsService;
+    }
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
@@ -28,13 +38,14 @@ public class StudentManagementWebSecurityConfig extends WebSecurityConfigurerAda
 				.formLogin().and().httpBasic();
 			*/	
 	}
-
-	protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("user1").password(passwordEncoder().encode("user1Pass")).roles("USER")
-				.and().withUser("user2").password(passwordEncoder().encode("user2Pass")).roles("USER").and()
-				.withUser("admin").password(passwordEncoder().encode("adminPass")).roles("ADMIN");
-	}
-
+	
+	@Override
+    protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+        authenticationManagerBuilder
+                .userDetailsService(this.studentMgmtUserDetailsService)
+                .passwordEncoder(passwordEncoder());
+    }
+	
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();

@@ -6,13 +6,13 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name="user")
@@ -28,13 +28,8 @@ public class User {
 
 	@Column(name = "user_password")
 	private String password;
-
-	@ManyToMany(cascade = { CascadeType.ALL })
-	@JoinTable(
-			name="user_userrole",
-			joinColumns= {@JoinColumn(name="user_id")},
-			inverseJoinColumns = {@JoinColumn(name="role_id")}
-			)
+	
+	@ManyToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Role> roles = new HashSet<Role>();
 
 	public User(String name, String password, Set<Role> roles) {
@@ -90,11 +85,11 @@ public class User {
 		}
 		
 		this.roles.add(role);
-		role.getGlusers().add(this);
+		role.getUsers().add(this);
 	}
 
 	@Override
 	public String toString() {
-		return "GLUser [id=" + id + ", name=" + name + ", password=" + password + ", roles=" + roles + "]";
+		return "User [id=" + id + ", name=" + name + ", password=" + password + ", roles=" + roles + "]";
 	}
 }
