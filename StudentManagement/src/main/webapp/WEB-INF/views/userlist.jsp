@@ -87,7 +87,7 @@
     		
     		<div class="row">
   				<div class="col-sm-2">
-  				     <a href="users/list">
+  				     <a href="/users/adduser">
       					<button type="button" class="btn btn-primary" align="right">Add User</button>
    					</a> 		
   				</div>

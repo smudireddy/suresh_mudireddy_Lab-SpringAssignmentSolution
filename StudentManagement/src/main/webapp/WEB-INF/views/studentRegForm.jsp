@@ -38,7 +38,14 @@
   <h3>Student Registration</h3>
   <div class="card">
    <div class="card-body">
-    <form action="<%=request.getContextPath()%>/students/register" method="post">
+    <form action="/students/register" method="post">
+    
+    	<div class="form-group row">
+     	 	<label for="id" class="col-sm-2 col-form-label"></label>
+      		<div class="col-sm-7">
+       			<input type="hidden" class="form-control" name="id" placeholder="" value="${student.id}">
+      		</div>
+     	</div>
 
      <div class="form-group row">
       <label for="firstName" class="col-sm-2 col-form-label">First Name</label>

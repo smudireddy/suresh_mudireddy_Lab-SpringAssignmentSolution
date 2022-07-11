@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.iitr.gl.lab6.studentmgmt.entity.Role;
+import com.iitr.gl.lab6.studentmgmt.entity.Student;
 import com.iitr.gl.lab6.studentmgmt.entity.User;
 import com.iitr.gl.lab6.studentmgmt.services.StudentMgmtUserDetailsService;
 
@@ -20,10 +24,31 @@ public class StudentMgmtUserController {
 	
 	@GetMapping("/")
 	public String usersList(Model model) {
-		
-		System.out.println("----> Users List");
 		List<User> users = userDetailsService.fetchAllUsers();
 		model.addAttribute("users", users);
 		return "userlist";
 	}
+	
+	@GetMapping("/adduser")
+	public String showUserAddForm(Model model) {
+		
+		model.addAttribute("user", new User());
+		List<Role> roles = userDetailsService.fetchAllRoles();
+		model.addAttribute("roles",roles);
+		return "adduserform";
+	}
+	
+	/*
+	@RequestMapping(value = { "/users/register", "/users/update" }, method = RequestMethod.POST)
+	public String addStudentRegisteration(@RequestParam("userI"), Model model) {
+		
+		if(student.getId() == 0) {
+			managementStudentService.addStudent(student);
+		}
+		else {
+			managementStudentService.updateStudent(student);
+		}
+		return "redirect:/students";
+	}
+	*/
 }
