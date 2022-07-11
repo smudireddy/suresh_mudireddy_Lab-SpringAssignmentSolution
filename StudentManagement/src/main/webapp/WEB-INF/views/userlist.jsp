@@ -7,7 +7,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Registered Students</title>
+		<title>Registered Users</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<link href="<c:url value="/css/custom.css"/>" rel="stylesheet" >
 	</head>
@@ -20,16 +20,16 @@
   			<!-- Toggler/collapsibe Button -->
   			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     			<span class="navbar-toggler-icon"></span>
-  			</button>
+  			</button>  
   			
   			<!-- Navbar links -->
   			<div class="collapse navbar-collapse" id="collapsibleNavbar">
     			<ul class="navbar-nav">
       				<li class="nav-item">
-        				<a class="nav-link" href="/users/">Registered Users</a>
+        				<a class="nav-link" href="/students">Registered Students</a>
       				</li>
     			</ul>
-  			</div>		
+  			</div>
 		</nav>
 		<br/>
 		<br/>
@@ -38,14 +38,8 @@
 	    <div class="container">
 	    
 	    	<div class="row">
-  				<div class="col-sm-5">
-  					<h3>Registered Students</h3>
-  				</div>
-  				<div class="col-sm-6">
-  					<form class="form-inline" action="<%=request.getContextPath()%>/students/search" method="GET">
-				    	<input class="form-control mr-sm-2" type="search" placeholder="Search" name="searchkey" aria-label="Search">
-    					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-  					</form>
+  				<div class="col-sm-11">
+  					<h3>Users</h3>
   				</div>
   				<div class="col-sm-1">
   					<a href="/logout" class="btn btn-link btn-sm mb-3 mx-auto">Logout</a>
@@ -61,25 +55,28 @@
 			<table class="table table-bordered table-striped table-sm">
 				<thead class="thead-dark">
 					<tr>
-						<th scope="col">Student ID</th>
-						<th scope="col">Student Name</th>
-						<th scope="col">Course</th>
-						<th scope="col">Country</th>
+						<th scope="col">User ID</th>
+						<th scope="col">User Name</th>
+						<th scope="col">User Role</th>
 						<th scope="col">Actions</th>				
         			</tr>
         		</thead>
         		<tbody>
-        			<c:forEach items="${students}" var="student">
+        			<c:forEach items="${users}" var="user">
         				<tr>
-        					<td>${student.id}</td>
-        					<td>${student.firstName}&nbsp;${student.lastName}</td>
-        					<td>${student.course}</td>
-        					<td>${student.country}</td>
+        					<td>${user.id}</td>
+        					<td>${user.name}</td>
+        					
         					<td>
-        						
-	        					<a href="/students/update?studentId=${student.id}" class="btn btn-info btn-sm">Update</a>
-	        					<a href="/students/deregister?studentId=${student.id}" class="btn btn-danger btn-sm"
-	        					onClick=if (!(confirm('Are you sure you want to delete the student registration?'))) return false">Delete</a>
+        						<c:forEach items="${user.roles}" var="role">
+        						  <p>${role.roleName}</p>
+        						</c:forEach>
+        					</td>
+        					
+        					<td>
+        						<a href="/users/update?userId=${user.id}" class="btn btn-info btn-sm">Update</a>
+	        					<a href="/users/delete?userId=${user.id}" class="btn btn-danger btn-sm"
+	        					onClick=if (!(confirm('Are you sure you want to delete the user?'))) return false">Delete</a>
 	        					
         					</td>
         				</tr>
@@ -90,12 +87,12 @@
     		
     		<div class="row">
   				<div class="col-sm-2">
-  				     <a href="students/register">
-      					<button type="button" class="btn btn-primary" align="right">Add New Student</button>
+  				     <a href="users/list">
+      					<button type="button" class="btn btn-primary" align="right">Add User</button>
    					</a> 		
   				</div>
 			</div>
 			
     	</div>
     </body>
-</html>    	   	
+</html>

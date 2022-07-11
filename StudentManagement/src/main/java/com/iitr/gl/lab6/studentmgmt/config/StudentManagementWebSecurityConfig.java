@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.iitr.gl.lab6.studentmgmt.servicesimpl.StudentMgmtUserDetailsService;
+import com.iitr.gl.lab6.studentmgmt.servicesimpl.StudentMgmtUserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -20,7 +20,7 @@ public class StudentManagementWebSecurityConfig extends WebSecurityConfigurerAda
 	
 	private UserDetailsService studentMgmtUserDetailsService;
 	
-	public StudentManagementWebSecurityConfig(StudentMgmtUserDetailsService studentMgmtUserDetailsService) {
+	public StudentManagementWebSecurityConfig(StudentMgmtUserDetailsServiceImpl studentMgmtUserDetailsService) {
         this.studentMgmtUserDetailsService = studentMgmtUserDetailsService;
     }
 	
@@ -30,10 +30,11 @@ public class StudentManagementWebSecurityConfig extends WebSecurityConfigurerAda
 		http.anonymous()
 			.and()
 			.authorizeRequests()
-			.antMatchers("/", "/students","/students/accessdenied").hasAnyRole("USER", "ADMIN")
+			.antMatchers("/", "/students","/students/accessdenied","/users/accessdenied").hasAnyRole("USER", "ADMIN")
 			.antMatchers("/students/register", 
 					"/students/update", 
-					"/students/deregister")
+					"/students/deregister",
+					"/users**")
 			.hasRole("ADMIN")
 			.anyRequest()
 			.authenticated()
@@ -46,7 +47,7 @@ public class StudentManagementWebSecurityConfig extends WebSecurityConfigurerAda
 			.and()
 			.exceptionHandling().accessDeniedPage("/students/accessdenied")
 			.and()
-			.exceptionHandling().accessDeniedPage("/students/accessdenied")
+			.exceptionHandling().accessDeniedPage("/users/accessdenied")
 			.and().cors().and().csrf().disable();
 	}
 	
