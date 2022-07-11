@@ -67,4 +67,13 @@ public class StudentManagementStudentController {
 		managementStudentService.deleteStudentById(studentId);
 		return "redirect:/students";
 	}
+	
+	@GetMapping("/students/search") 
+	
+	String findStudentsByKey(@RequestParam("searchkey") String searchKey, Model model) {
+		
+		List<Student> students = managementStudentService.findByFirstNameOrLastName(searchKey);
+		model.addAttribute("students", students);
+		return "studentlist";
+	}
 }

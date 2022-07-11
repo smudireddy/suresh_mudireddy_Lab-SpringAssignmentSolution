@@ -44,9 +44,9 @@ public class StudentManagementWebSecurityConfig extends WebSecurityConfigurerAda
 					.permitAll()
 			.and().logout().logoutSuccessUrl("/login").permitAll()
 			.and()
-			.exceptionHandling().accessDeniedPage("/accessdenied.jsp")
+			.exceptionHandling().accessDeniedPage("/students/accessdenied")
 			.and()
-			.exceptionHandling().accessDeniedPage("/accessdenied.jsp")
+			.exceptionHandling().accessDeniedPage("/students/accessdenied")
 			.and().cors().and().csrf().disable();
 	}
 	

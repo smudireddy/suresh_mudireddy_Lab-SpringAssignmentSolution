@@ -3,6 +3,7 @@ package com.iitr.gl.lab6.studentmgmt.servicesimpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import com.iitr.gl.lab6.studentmgmt.entity.Student;
@@ -58,8 +59,7 @@ public class StudentManagementStudentServiceImpl implements StudentManagementStu
 	}
 
 	@Override
-	public List<Student> searchStudent(String searchStr) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Student> findByFirstNameOrLastName(String searchStr) {
+		return studentRepository.findByFirstNameOrLastName(searchStr);
 	}	
 }

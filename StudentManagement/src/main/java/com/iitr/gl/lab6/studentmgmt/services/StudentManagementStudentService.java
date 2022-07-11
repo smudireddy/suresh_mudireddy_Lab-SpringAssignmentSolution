@@ -11,5 +11,5 @@ public interface StudentManagementStudentService {
 	void deleteStudentById(Long studentId);
 	void addStudent(Student student);
 	void updateStudent(Student student);
-	List<Student> searchStudent(String searchStr);
+	List<Student> findByFirstNameOrLastName(String searchStr);
 }
