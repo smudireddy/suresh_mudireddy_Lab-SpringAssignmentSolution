@@ -90,7 +90,7 @@
     		
     		<div class="row">
   				<div class="col-sm-2">
-  				     <a href="students/register">
+  				     <a href="/students/register">
       					<button type="button" class="btn btn-primary" align="right">Add New Student</button>
    					</a> 		
   				</div>

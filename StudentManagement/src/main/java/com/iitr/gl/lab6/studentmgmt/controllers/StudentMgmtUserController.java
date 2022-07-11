@@ -6,12 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.iitr.gl.lab6.studentmgmt.entity.Role;
-import com.iitr.gl.lab6.studentmgmt.entity.Student;
 import com.iitr.gl.lab6.studentmgmt.entity.User;
 import com.iitr.gl.lab6.studentmgmt.services.StudentMgmtUserDetailsService;
 
@@ -27,6 +24,11 @@ public class StudentMgmtUserController {
 		List<User> users = userDetailsService.fetchAllUsers();
 		model.addAttribute("users", users);
 		return "userlist";
+	}
+	
+	@GetMapping("/accessdenied")
+	public String  showAccessdeniedMessage() {
+		return "accessdenied";
 	}
 	
 	@GetMapping("/adduser")

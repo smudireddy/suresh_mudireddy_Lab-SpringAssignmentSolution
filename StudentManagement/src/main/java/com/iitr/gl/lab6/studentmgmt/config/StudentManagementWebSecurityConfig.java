@@ -34,7 +34,7 @@ public class StudentManagementWebSecurityConfig extends WebSecurityConfigurerAda
 			.antMatchers("/students/register", 
 					"/students/update", 
 					"/students/deregister",
-					"/users**")
+					"/users", "/users/**")
 			.hasRole("ADMIN")
 			.anyRequest()
 			.authenticated()

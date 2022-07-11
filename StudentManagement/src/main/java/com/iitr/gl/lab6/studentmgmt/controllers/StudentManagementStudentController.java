@@ -30,11 +30,10 @@ public class StudentManagementStudentController {
 		return "studentlist";
 	}
 	
-	@RequestMapping("/students/accessdenied")
+	@GetMapping("/students/accessdenied")
 	public String  showAccessdeniedMessage() {
 		return "accessdenied";
 	}
-
 	
 	@GetMapping("/students/register")
 	public String showStudentRegisterationForm(Model model) {
@@ -68,8 +67,7 @@ public class StudentManagementStudentController {
 		return "redirect:/students";
 	}
 	
-	@GetMapping("/students/search") 
-	
+	@GetMapping("/students/search")
 	String findStudentsByKey(@RequestParam("searchkey") String searchKey, Model model) {
 		
 		List<Student> students = managementStudentService.findByFirstNameOrLastName(searchKey);
